@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css">
+    <title>LoL Account Finder</title>
+    <style>
+        @font-face {
+            font-family: 'Friz Quadrata Bold';
+            src: url(Fonts/Friz_Quadrata_Bold.otf);
+        }
+        
+        body {
+            background: url('Images/lol-back.jpg');
+        }
+        
+        .card {
+            padding: 20px;
+            background-color: rgba(255,255,255,0.5);
+            border: 3px solid gold;
+        }
+
+        h1 {
+            font-family: 'Friz Quadrata Bold';
+            padding-top: 20rem;
+            text-align: center;
+            text-shadow: 1px 1px 3px black;
+            color: gold;
+        }
+
+        h5 {
+            font-family: 'Friz Quadrata Bold';
+            text-align: center;
+            text-shadow: 1px 1px 3px black;
+            color: skyblue;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .button-center {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>LoL Account Finder</h1>
+        <h5>The best place to find your League of Legends account info!</h5>
+        <input type="text" class="summoner-name u-full-width" placeholder="Enter Summoner Name" required>
+        <div class="button-center">
+            <button type="submit" onclick="displaySummonerCard()" class="submit-btn button-primary" id="submit-btn">Search</button>
+        </div>
+        <div class="card hidden">
+            <label>Summoner Name:</label>
+            <span class="summoner-ingame-name"></span><br>
+            <label>Summoner Level:</label>
+            <span class="summoner-level"></span><br>
+            <label>Last Activity:</label>
+            <span class="last-date"></span><br>
+            <label>Account ID:</label>
+            <span class="account-id"></span><br>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script type="text/javascript">
+        const apiURL = 'https://cors-anywhere.herokuapp.com/https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/';
+        const apiKey = '?api_key=RGAPI-8962c301-8f53-44d0-b8c6-a69f5c191b8e';
+        const summonerName = document.querySelector('.summoner-name');
+        const summonerIngameName = document.querySelector('.summoner-ingame-name');
+        const summonerIngameLevel = document.querySelector('.summoner-level');
+        const summonerLastDate = document.querySelector('.last-date');
+        const summonerAccountId = document.querySelector('.account-id');
+        const submitBtn = document.querySelector('.submit-btn');
+        const submitBtnEnter = document.querySelector('.submit-btn-enter');
+        const summonerCard = document.querySelector('.card');
+
+        function getSummonerData() {
+            axios.get(apiURL + summonerName.value + apiKey)
+                .then(response => {
+                    summonerIngameName.innerHTML = response.data.name;
+                    summonerIngameLevel.innerHTML = response.data.summonerLevel;
+                    
+                    const lastDate = response.data.revisionDate
+                    const newLastDate = new Date(lastDate);
+                    
+                    summonerLastDate.innerHTML = newLastDate;
+                    summonerAccountId.innerHTML = response.data.accountId;
+                })
+                .catch(error => {
+                    summonerIngameName.innerHTML = "(ERROR! Summoner name does not exist or name not entered properly.)";
+                    summonerIngameLevel.innerHTML = "(ERROR! Summoner name does not exist or name not entered properly.)";
+                    summonerLastDate.innerHTML = "(ERROR! Summoner name does not exist or name not entered properly.)";
+                    summonerAccountId.innerHTML = "(ERROR! Summoner name does not exist or name not entered properly.)";
+                });
+        };
+        submitBtn.addEventListener('click', getSummonerData);
+
+        summonerCard.classList.add('hidden');
+        
+        function displaySummonerCard() {
+            summonerCard.classList.remove('hidden');
+        };
+
+    </script>
+</body>
+</html>
