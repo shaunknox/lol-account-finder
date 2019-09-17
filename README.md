@@ -5,11 +5,11 @@ APP LINK HERE --> lolaccountfinder.com
 
 In order to view the data, you will need to already have a League of Legends account or you can use on of my various friends below to view there data. To view there data, just input there username/ summoner name in the input field.
 
-AngelCharm
-Banana Nut Man
-Toon Nemesis
-lvl 6
-bigbrobrennan
+* AngelCharm
+* Banana Nut Man
+* Toon Nemesis
+* lvl 6
+* bigbrobrennan
 
 Future Updates:
 * Enter feature to be implemented
