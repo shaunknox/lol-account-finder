@@ -11,7 +11,10 @@ In order to view the data, you will need to already have a League of Legends acc
 * lvl 6
 * bigbrobrennan
 
+This web application was made with Axios JS, HTML5, and Skeleton CSS.
+
 Future Updates:
+
 * Enter feature to be implemented
 * Summoner logos along with summoner data
 * One error message
